@@ -35,12 +35,6 @@ const FormStyle = styled.form`
             filter: brightness(1.5);
         }
     }
-    h1 {
-        font-family: 'Saira Stencil One';
-        font-size: 32px;
-        color: white;
-        margin-bottom: 13px;
-    }
 `
 
 export default FormStyle
