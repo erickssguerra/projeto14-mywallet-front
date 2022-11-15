@@ -8,7 +8,7 @@ export default function DepositPage() {
 
     function inputControl(event) {
         setForm({
-            ...form, [event.target.name]: event.target.value
+            ...form, [event.target.name]: event.target.value, type: "deposit"
         })
     }
 
