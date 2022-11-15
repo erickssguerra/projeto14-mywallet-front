@@ -8,12 +8,15 @@ export default function DepositPage() {
 
     function inputControl(event) {
         setForm({
-            ...form, [event.target.name]: event.target.value, type: "deposit"
+            ...form,
+            [event.target.name]: event.target.value,
+            type: "deposit"
         })
     }
 
     function deposit(event) {
         event.preventDefault()
+        form.price = Number(form.price).toFixed(2)
         console.log(form)
     }
 
@@ -25,6 +28,7 @@ export default function DepositPage() {
                     type="text"
                     placeholder="Valor"
                     name="price"
+                    pattern="[-+]?[0-9]*\.?[0-9]*"
                     onChange={inputControl}
                     value={form.price}
                     required
