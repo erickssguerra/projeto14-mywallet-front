@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 import StatementCard from "./StatementCard"
 
@@ -20,14 +21,14 @@ export default function StatementPage() {
                 </div>
             </section>
             <ButtonsContainer>
-                <button>
+                <Link to="/entrada">
                     <ion-icon name="add-circle-outline"></ion-icon>
                     <p>Nova Entrada</p>
-                </button>
-                <button>
+                </Link>
+                <Link to="/saida">
                     <ion-icon name="remove-circle-outline"></ion-icon>
                     <p>Nova Saída</p>
-                </button>
+                </Link>
             </ButtonsContainer>
         </StatementPageStyle>
     )
@@ -98,7 +99,8 @@ const ButtonsContainer = styled.div`
     justify-content: space-between;
     width: 360px;
     height: 115px;
-    button {
+    
+    a {
         width: 48%;
         height: 100%;
         display: flex;
