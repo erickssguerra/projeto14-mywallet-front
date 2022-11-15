@@ -10,6 +10,7 @@ const LoginPageStyle = styled.div`
     img {
         width: 200px;
         filter: drop-shadow(0 0 0.75rem);
+        margin: 20px;
     }
     
     h1 {
