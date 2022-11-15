@@ -27,7 +27,7 @@ export default function LoginPage() {
             <h1>MyWallet</h1>
             <FormStyle onSubmit={login}>
                 <input
-                    placeholder="email"
+                    placeholder="E-mail"
                     type="email"
                     name="email"
                     onChange={inputControl}
@@ -35,7 +35,7 @@ export default function LoginPage() {
                     required
                 />
                 <input
-                    placeholder="senha"
+                    placeholder="Senha"
                     type="password"
                     name="password"
                     onChange={inputControl}
