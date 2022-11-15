@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import StatementCard from "./StatementCard"
 
 export default function StatementPage() {
     return (
@@ -7,9 +8,17 @@ export default function StatementPage() {
                 <h1>Olá, Fulano</h1>
                 <ion-icon name="log-out-outline"></ion-icon>
             </header>
-            <ul>
-                <p>Não há registros de entrada ou saída</p>
-            </ul>
+            <section>
+                <ul>
+                    <StatementCard />
+                    <StatementCard />
+                    <StatementCard />
+                    <StatementCard />
+                </ul>
+                <div className="total">
+                    <h2>SALDO</h2> <span>2893.11</span>
+                </div>
+            </section>
             <ButtonsContainer>
                 <button>
                     <ion-icon name="add-circle-outline"></ion-icon>
@@ -44,11 +53,11 @@ const StatementPageStyle = styled.nav`
             cursor: pointer;
         }
     }
-    ul {
+    section {
         display: flex;
         flex-direction: column;
-        align-items: center;  // "flex-start" => lista com itens || "center" => lista vazia
-        justify-content: center; //"space-between" => lista com itens || "center" => lista vazia
+        align-items: center;
+        justify-content: space-between; //"space-between" => lista com itens || "center" => lista vazia
         width: 360px;
         height: 446px;
         background-color: white;
@@ -64,9 +73,25 @@ const StatementPageStyle = styled.nav`
             text-align: center;
             width: 180px;
         }
+        ul {
+            width: 100%;
+        }
+
+        .total {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 17px;
+            h2{
+                font-weight: 700;
+                color: black;
+            }
+            span{
+                color: #03AC00; //muda a cor para "#C70000" se o valor for < 0
+            }
+        }
     }
 `
-
 const ButtonsContainer = styled.div`
     display: flex;
     align-items: space-between;
