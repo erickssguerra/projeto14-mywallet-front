@@ -1,5 +1,9 @@
+import FormStyle from "../assets/FormStyle"
+
 export default function DepositPage() {
     return (
-        <>Depósito</>
+        <FormStyle>
+            Entrada
+        </FormStyle>
     )
 }

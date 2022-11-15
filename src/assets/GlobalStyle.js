@@ -30,9 +30,17 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 	font-family: 'Raleway', sans-serif;
+	background-color: #8E3CBE;
 }
 ol, ul {
 	list-style: none;
 }
+input, button, form {
+	font-family: 'Raleway', sans-serif;
+}
+* {
+	box-sizing: border-box;
+}
+
 `
 export default GlobalStyle

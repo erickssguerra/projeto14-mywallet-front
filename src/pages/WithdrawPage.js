@@ -1,5 +1,9 @@
+import FormStyle from "../assets/FormStyle"
+
 export default function WithdrawPage() {
     return (
-        <>Saque</>
+        <FormStyle>
+            Saída
+        </FormStyle>
     )
 }

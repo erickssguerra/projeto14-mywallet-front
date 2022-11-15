@@ -13,8 +13,8 @@ export default function App() {
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/cadastro" element={<RegisterPage />} />
                 <Route path="/extrato" element={<StatementPage />} />
-                <Route path="/deposito" element={<DepositPage />} />
-                <Route path="/saque" element={<WithdrawPage />} />
+                <Route path="/entrada" element={<DepositPage />} />
+                <Route path="/saida" element={<WithdrawPage />} />
             </Routes>
         </BrowserRouter>
     )

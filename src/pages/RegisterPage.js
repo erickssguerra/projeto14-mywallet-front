@@ -1,5 +1,9 @@
+import FormStyle from "../assets/FormStyle"
+
 export default function RegisterPage() {
     return (
-        <>Cadastro</>
+        <FormStyle>
+            Cadastro
+        </FormStyle>
     )
 }
