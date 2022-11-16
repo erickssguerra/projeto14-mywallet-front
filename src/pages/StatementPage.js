@@ -1,26 +1,50 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import StatementCard from "./StatementCard"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../context/Auth"
+import axios from "axios"
 
 export default function StatementPage() {
 
-    const { name } = useContext(AuthContext)
+    const { name, token } = useContext(AuthContext)
+    const [items, setItems] = useState("")
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        }
+
+        const promise = axios.get("http://localhost:5000/transactions", config)
+        promise.then((res) => {
+            setItems(res.data)
+        })
+        promise.catch((err) => {
+            alert(err.response.data.message)
+            navigate("/")
+            window.location.reload()
+        })
+
+    }, [token, navigate, items])
 
     return (
-        <StatementPageStyle>
+        <StatementPageStyle isEmpty={items.length === 0}>
             <header>
                 <h1>Olá, {name}</h1>
                 <ion-icon name="log-out-outline"></ion-icon>
             </header>
             <section>
-                <ul>
-                    <StatementCard />
-                </ul>
-                <div className="total">
-                    <h2>SALDO</h2> <span>2893.11</span>
-                </div>
+                {items.length === 0 ? <p>Não há registros de entrada ou saída.</p> :
+                    <>
+                        <ul>
+                            {items.map((item, i) => <StatementCard item={item} key={i} />)}
+                        </ul>
+                        <div className="total">
+                            <h2>SALDO</h2> <span>2893.11</span>
+                        </div>
+                    </>
+                }
             </section>
             <ButtonsContainer>
                 <Link to="/entrada">
@@ -60,13 +84,17 @@ const StatementPageStyle = styled.nav`
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-between; //"space-between" => lista com itens || "center" => lista vazia
+        justify-content: ${({ isEmpty }) => (isEmpty ? "center" : "space-between")}; //"space-between" => lista com itens || "center" => lista vazia
         width: 360px;
         height: 446px;
         background-color: white;
+        overflow-x: scroll;
         border-radius: 5px;
         padding: 10px;
         margin-bottom: 13px;
+        ::-webkit-scrollbar {
+            display: none;
+        }
         
         p { //usado para a mensagem "Não há registros de entrada ou saída"
             font-size: 20px;
