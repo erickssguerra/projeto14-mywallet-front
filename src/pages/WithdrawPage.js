@@ -1,10 +1,15 @@
 import TransactionPageStyle from "../assets/TransactionPageStyle"
 import FormStyle from "../assets/FormStyle"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import dayjs from "dayjs"
+import { AuthContext } from "../context/Auth"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 export default function WithdrawPage() {
 
+    const { token } = useContext(AuthContext)
+    const navigate = useNavigate()
     const [form, setForm] = useState({ price: "", description: "" })
 
     function inputControl(event) {
@@ -18,8 +23,21 @@ export default function WithdrawPage() {
 
     function withdraw(event) {
         event.preventDefault()
+
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        }
         form.price = Number(form.price).toFixed(2)
-        console.log(form)
+
+        const promise = axios.post("http://localhost:5000/transactions", form, config)
+        promise.then((res) => {
+            alert(res.data.message)
+            navigate("/extrato")
+        })
+        promise.catch((err) => {
+            alert(err.response.data.message)
+            navigate("/")
+        })
     }
 
     return (
