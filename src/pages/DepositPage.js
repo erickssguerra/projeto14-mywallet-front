@@ -1,11 +1,22 @@
 import TransactionPageStyle from "../assets/TransactionPageStyle"
 import FormStyle from "../assets/FormStyle"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import dayjs from "dayjs"
+import { AuthContext } from "../context/Auth"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 export default function DepositPage() {
 
+    const { token } = useContext(AuthContext)
+    const navigate = useNavigate()
     const [form, setForm] = useState({ price: "", description: "" })
+
+    useEffect(() => {
+        
+
+        
+    }, [])
 
     function inputControl(event) {
         setForm({
@@ -18,8 +29,20 @@ export default function DepositPage() {
 
     function deposit(event) {
         event.preventDefault()
+        
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        }
         form.price = Number(form.price).toFixed(2)
-        console.log(form)
+
+        const promise = axios.post("http://localhost:5000/transactions", form, config)
+        promise.then((res) => {
+            alert(res.data.message)
+            navigate("/extrato")
+        })
+        promise.catch((err) => {
+            alert(err.response.data.message)
+        })
     }
 
     return (

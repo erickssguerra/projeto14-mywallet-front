@@ -11,7 +11,7 @@ export default function StatementCard({ item }) {
                 <span className="description">{description}</span>
             </ContainerLeft>
             <ContainerRight type={type}>
-                <span className="value">{price.toFixed(2)}</span>
+                <span className="value">{Number(price).toFixed(2)}</span>
             </ContainerRight>
         </StatementCardStyle>
 

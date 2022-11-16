@@ -39,15 +39,15 @@ export default function StatementPage() {
             let sum = 0
             for (let i = 0; i < items.length; i++) {
                 if (items[i].type === "withdraw") {
-                    sum = sum - items[i].price
+                    sum = sum - Number(items[i].price)
                 }
                 if (items[i].type === "deposit") {
-                    sum = sum + items[i].price
+                    sum = sum + Number(items[i].price)
                 }
             }
             return sum.toFixed(2)
         }
-    }, [setTotal])
+    }, [items, navigate, token])
 
 
 
