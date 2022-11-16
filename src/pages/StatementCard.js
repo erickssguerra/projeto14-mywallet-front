@@ -1,13 +1,31 @@
+import { useContext } from "react"
 import styled from "styled-components"
+import { AuthContext } from "../context/Auth"
+import axios from "axios"
+
 
 export default function StatementCard({ item }) {
 
-    function deleteTransaction(email) {
+    const { token } = useContext(AuthContext)
+    const { price, description, type, day, _id } = item
+
+    function deleteTransaction() {
         const confirmation = window.confirm("Voce quer mesmo deletar?")
-        console.log(email, confirmation)
+        if (confirmation) {
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            }
+            const promise = axios.delete(`http://localhost:5000/transactions/${_id}`, config)
+            promise.then((res) => {
+                console.log(res.data.message)
+            })
+            promise.catch((err) => {
+                alert(err.response.data.message)
+            })
+        }
+        return
     }
 
-    const { price, description, type, day, email } = item
 
     return (
         <StatementCardStyle>
@@ -17,7 +35,7 @@ export default function StatementCard({ item }) {
             </ContainerLeft>
             <ContainerRight type={type}>
                 <span className="value">{Number(price).toFixed(2)}</span>
-                <ion-icon onClick={() => deleteTransaction(email)} name="close-circle-outline"></ion-icon>
+                <ion-icon onClick={() => deleteTransaction()} name="close-circle-outline"></ion-icon>
             </ContainerRight>
         </StatementCardStyle>
 
