@@ -1,6 +1,6 @@
 import TransactionPageStyle from "../assets/TransactionPageStyle"
 import FormStyle from "../assets/FormStyle"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import dayjs from "dayjs"
 import { AuthContext } from "../context/Auth"
 import axios from "axios"
@@ -21,6 +21,22 @@ export default function DepositPage() {
         })
     }
 
+    useEffect(() => {
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        }
+        const promise = axios.get("http://localhost:5000/transactions", config)
+        promise.then((res) => {
+            console.log({ message: "Você está logado" })
+        })
+        promise.catch((err) => {
+            alert(err.response.data.message)
+            navigate("/")
+            window.location.reload()
+        })
+
+    }, [navigate, token])
+
     function deposit(event) {
         event.preventDefault()
 
@@ -37,6 +53,7 @@ export default function DepositPage() {
         promise.catch((err) => {
             alert(err.response.data.message)
             navigate("/")
+            window.location.reload()
         })
     }
 
