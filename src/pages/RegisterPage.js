@@ -31,8 +31,6 @@ export default function RegisterPage() {
         promise.catch((err) => {
             alert(err.response.data.message)
         })
-        // verificar se os passwords são iguais antes de passar
-        console.log(form)
     }
 
     return (

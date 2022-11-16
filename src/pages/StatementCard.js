@@ -10,7 +10,7 @@ export default function StatementCard({ item }) {
     const { price, description, type, day, _id } = item
 
     function deleteTransaction() {
-        const confirmation = window.confirm("Voce quer mesmo deletar?")
+        const confirmation = window.confirm("Voce quer mesmo apagar essa transação?")
         if (confirmation) {
             const config = {
                 headers: { Authorization: `Bearer ${token}` }
