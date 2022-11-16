@@ -1,6 +1,7 @@
 import TransactionPageStyle from "../assets/TransactionPageStyle"
 import FormStyle from "../assets/FormStyle"
 import { useState } from "react"
+import dayjs from "dayjs"
 
 export default function DepositPage() {
 
@@ -10,7 +11,8 @@ export default function DepositPage() {
         setForm({
             ...form,
             [event.target.name]: event.target.value,
-            type: "deposit"
+            type: "deposit",
+            day: dayjs().format("DD/MM")
         })
     }
 
