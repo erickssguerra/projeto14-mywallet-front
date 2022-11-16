@@ -1,6 +1,6 @@
 import TransactionPageStyle from "../assets/TransactionPageStyle"
 import FormStyle from "../assets/FormStyle"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import dayjs from "dayjs"
 import { AuthContext } from "../context/Auth"
 import axios from "axios"
@@ -11,12 +11,6 @@ export default function DepositPage() {
     const { token } = useContext(AuthContext)
     const navigate = useNavigate()
     const [form, setForm] = useState({ price: "", description: "" })
-
-    useEffect(() => {
-        
-
-        
-    }, [])
 
     function inputControl(event) {
         setForm({
@@ -29,7 +23,7 @@ export default function DepositPage() {
 
     function deposit(event) {
         event.preventDefault()
-        
+
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         }
@@ -42,6 +36,7 @@ export default function DepositPage() {
         })
         promise.catch((err) => {
             alert(err.response.data.message)
+            navigate("/")
         })
     }
 
