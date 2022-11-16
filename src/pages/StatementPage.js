@@ -11,6 +11,12 @@ export default function StatementPage() {
     const [items, setItems] = useState("")
     const navigate = useNavigate()
 
+    function logout() {
+        navigate("/")
+        window.location.reload()
+    }
+
+
     useEffect(() => {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
@@ -32,7 +38,7 @@ export default function StatementPage() {
         <StatementPageStyle isEmpty={items.length === 0}>
             <header>
                 <h1>Olá, {name}</h1>
-                <ion-icon name="log-out-outline"></ion-icon>
+                <ion-icon onClick={logout} name="log-out-outline"></ion-icon>
             </header>
             <section>
                 {items.length === 0 ? <p>Não há registros de entrada ou saída.</p> :

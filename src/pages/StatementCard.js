@@ -1,14 +1,17 @@
 import styled from "styled-components"
 
-export default function StatementCard() {
+export default function StatementCard({ item }) {
+
+    const { price, description, type, day } = item
+
     return (
         <StatementCardStyle>
             <ContainerLeft>
-                <span className="day">30/11</span>
-                <span className="description">Almoço mãe</span>
+                <span className="day">{day}</span>
+                <span className="description">{description}</span>
             </ContainerLeft>
-            <ContainerRight>
-                <span className="value">39.90</span>
+            <ContainerRight type={type}>
+                <span className="value">{price.toFixed(2)}</span>
             </ContainerRight>
         </StatementCardStyle>
 
@@ -36,7 +39,7 @@ const ContainerLeft = styled.div`
 `
 const ContainerRight = styled.div`
     .value{
-        color: #C70000; // saída #C70000 || entrada #03AC00 
+        color: ${({ type }) => (type === "withdraw" ? "#C70000" : "#03AC00")}; // saída #C70000 || entrada #03AC00 
     }   
 
 `
