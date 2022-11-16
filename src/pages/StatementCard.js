@@ -2,6 +2,11 @@ import styled from "styled-components"
 
 export default function StatementCard({ item }) {
 
+    function deleteTransaction() {
+        const confirmation = window.confirm("Voce quer mesmo deletar?")
+        console.log(confirmation)
+    }
+
     const { price, description, type, day } = item
 
     return (
@@ -12,6 +17,7 @@ export default function StatementCard({ item }) {
             </ContainerLeft>
             <ContainerRight type={type}>
                 <span className="value">{Number(price).toFixed(2)}</span>
+                <ion-icon onClick={deleteTransaction} name="close-circle-outline"></ion-icon>
             </ContainerRight>
         </StatementCardStyle>
 
@@ -38,6 +44,15 @@ const ContainerLeft = styled.div`
     }
 `
 const ContainerRight = styled.div`
+    display: flex;
+    align-items: center;
+
+    ion-icon {
+        font-size: 14px;
+        margin-left: 4px;
+        color: dimgray;
+        cursor: pointer;
+    }
     .value{
         color: ${({ type }) => (type === "withdraw" ? "#C70000" : "#03AC00")}; // saída #C70000 || entrada #03AC00 
     }   
