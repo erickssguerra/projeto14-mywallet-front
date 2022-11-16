@@ -1,19 +1,21 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import StatementCard from "./StatementCard"
+import { useContext, useState } from "react"
+import { AuthContext } from "../context/Auth"
 
 export default function StatementPage() {
+
+    const { name } = useContext(AuthContext)
+
     return (
         <StatementPageStyle>
             <header>
-                <h1>Olá, Fulano</h1>
+                <h1>Olá, {name}</h1>
                 <ion-icon name="log-out-outline"></ion-icon>
             </header>
             <section>
                 <ul>
-                    <StatementCard />
-                    <StatementCard />
-                    <StatementCard />
                     <StatementCard />
                 </ul>
                 <div className="total">
