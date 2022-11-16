@@ -2,12 +2,12 @@ import styled from "styled-components"
 
 export default function StatementCard({ item }) {
 
-    function deleteTransaction() {
+    function deleteTransaction(email) {
         const confirmation = window.confirm("Voce quer mesmo deletar?")
-        console.log(confirmation)
+        console.log(email, confirmation)
     }
 
-    const { price, description, type, day } = item
+    const { price, description, type, day, email } = item
 
     return (
         <StatementCardStyle>
@@ -17,7 +17,7 @@ export default function StatementCard({ item }) {
             </ContainerLeft>
             <ContainerRight type={type}>
                 <span className="value">{Number(price).toFixed(2)}</span>
-                <ion-icon onClick={deleteTransaction} name="close-circle-outline"></ion-icon>
+                <ion-icon onClick={() => deleteTransaction(email)} name="close-circle-outline"></ion-icon>
             </ContainerRight>
         </StatementCardStyle>
 
