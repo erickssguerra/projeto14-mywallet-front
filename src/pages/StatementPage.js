@@ -9,13 +9,13 @@ export default function StatementPage() {
 
     const { name, token } = useContext(AuthContext)
     const [items, setItems] = useState("")
+    const [total, setTotal] = useState(0)
     const navigate = useNavigate()
 
     function logout() {
         navigate("/")
         window.location.reload()
     }
-
 
     useEffect(() => {
         const config = {
@@ -24,6 +24,7 @@ export default function StatementPage() {
 
         const promise = axios.get("http://localhost:5000/transactions", config)
         promise.then((res) => {
+            setTotal(sum(res.data))
             setItems(res.data)
         })
         promise.catch((err) => {
@@ -32,10 +33,26 @@ export default function StatementPage() {
             window.location.reload()
         })
 
-    }, [token, navigate, items])
+        sum(items)
+
+        function sum(items) {
+            let sum = 0
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].type === "withdraw") {
+                    sum = sum - items[i].price
+                }
+                if (items[i].type === "deposit") {
+                    sum = sum + items[i].price
+                }
+            }
+            return sum.toFixed(2)
+        }
+    }, [setTotal])
+
+
 
     return (
-        <StatementPageStyle isEmpty={items.length === 0}>
+        <StatementPageStyle isEmpty={items.length === 0} isPositive={total > 0}>
             <header>
                 <h1>Olá, {name}</h1>
                 <ion-icon onClick={logout} name="log-out-outline"></ion-icon>
@@ -47,7 +64,7 @@ export default function StatementPage() {
                             {items.map((item, i) => <StatementCard item={item} key={i} />)}
                         </ul>
                         <div className="total">
-                            <h2>SALDO</h2> <span>2893.11</span>
+                            <h2>SALDO</h2> <span>{total.replace("-", "")}</span>
                         </div>
                     </>
                 }
@@ -124,7 +141,7 @@ const StatementPageStyle = styled.nav`
                 color: black;
             }
             span{
-                color: #03AC00; //muda a cor para "#C70000" se o valor for < 0
+                color: ${({ isPositive }) => (isPositive ? "#03AC00;" : "#C70000")} ; //muda a cor para "#C70000" se o valor for < 0
             }
         }
     }
