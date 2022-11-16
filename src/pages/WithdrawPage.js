@@ -31,7 +31,7 @@ export default function WithdrawPage() {
 
         const promise = axios.post("http://localhost:5000/transactions", form, config)
         promise.then((res) => {
-            alert(res.data.message)
+            console.log(res.data.message)
             navigate("/extrato")
         })
         promise.catch((err) => {
