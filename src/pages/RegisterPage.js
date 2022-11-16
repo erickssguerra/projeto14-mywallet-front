@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import axios from "axios"
 
 import FormStyle from "../assets/FormStyle"
 import LoginPageStyle from "../assets/LoginPageStyle"
@@ -7,6 +8,7 @@ import logo from "../assets/logo.png"
 
 export default function RegisterPage() {
 
+    const navigate = useNavigate()
     const [form, setForm] = useState({ name: "", email: "", password: "", password2: "" })
 
     function inputControl(event) {
@@ -22,6 +24,13 @@ export default function RegisterPage() {
             return
         }
         delete form.password2
+        const promise = axios.post("http://localhost:5000/sign-up", form)
+        promise.then(() => {
+            navigate("/")
+        })
+        promise.catch((err) => {
+            alert(err.response.data.message)
+        })
         // verificar se os passwords são iguais antes de passar
         console.log(form)
     }
@@ -35,6 +44,7 @@ export default function RegisterPage() {
                     placeholder="Nome"
                     type="text"
                     name="name"
+                    minLength="2"
                     onChange={inputControl}
                     value={form.name}
                     required
