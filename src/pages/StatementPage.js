@@ -87,6 +87,7 @@ const StatementPageStyle = styled.nav`
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100vh;
     header {
         display: flex;
         width: 360px;
@@ -109,7 +110,7 @@ const StatementPageStyle = styled.nav`
         align-items: center;
         justify-content: ${({ isEmpty }) => (isEmpty ? "center" : "space-between")}; //"space-between" => lista com itens || "center" => lista vazia
         width: 360px;
-        height: 446px;
+        height: 60%;
         background-color: white;
         overflow-y: scroll;
         scrollbar-width: none;
