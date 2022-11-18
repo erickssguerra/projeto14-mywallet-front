@@ -111,7 +111,8 @@ const StatementPageStyle = styled.nav`
         width: 360px;
         height: 446px;
         background-color: white;
-        overflow-x: scroll;
+        overflow-y: scroll;
+        scrollbar-width: none;
         border-radius: 5px;
         padding: 10px;
         margin-bottom: 13px;
