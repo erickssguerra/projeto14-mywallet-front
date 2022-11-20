@@ -17,11 +17,23 @@ export default function StatementPage() {
         window.location.reload()
     }
 
+    function sum(items) {
+        let sum = 0
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].type === "withdraw") {
+                sum = sum - Number(items[i].price)
+            }
+            if (items[i].type === "deposit") {
+                sum = sum + Number(items[i].price)
+            }
+        }
+        return sum.toFixed(2)
+    }
+
     useEffect(() => {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         }
-
         const promise = axios.get("http://localhost:5000/transactions", config)
         promise.then((res) => {
             setTotal(sum(res.data))
@@ -32,33 +44,16 @@ export default function StatementPage() {
             navigate("/")
             window.location.reload()
         })
-
-        sum(items)
-
-        function sum(items) {
-            let sum = 0
-            for (let i = 0; i < items.length; i++) {
-                if (items[i].type === "withdraw") {
-                    sum = sum - Number(items[i].price)
-                }
-                if (items[i].type === "deposit") {
-                    sum = sum + Number(items[i].price)
-                }
-            }
-            return sum.toFixed(2)
-        }
-    }, [items, navigate, token])
-
-
+    }, [items])
 
     return (
-        <StatementPageStyle isEmpty={items.length === 0} isPositive={total > 0}>
+        <StatementPageStyle isEmpty={items.length === 0} isPositive={total >= 0}>
             <header>
                 <h1>Olá, {name}</h1>
                 <ion-icon onClick={logout} name="log-out-outline"></ion-icon>
             </header>
             <section>
-                {items.length === 0 ? <p>Não há registros de entrada ou saída.</p> :
+                {items.length === 0 ? <p>Não há registros de entrada ou saída</p> :
                     <>
                         <ul>
                             {items.map((item, i) => <StatementCard item={item} key={i} />)}
