@@ -5,6 +5,8 @@ import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../context/Auth"
 import axios from "axios"
 
+import { rotatingLines } from "../assets/Loading-spinners.js"
+
 export default function StatementPage() {
 
     const { name, token } = useContext(AuthContext)
@@ -53,7 +55,7 @@ export default function StatementPage() {
                 <ion-icon onClick={logout} name="log-out-outline"></ion-icon>
             </header>
             <section>
-                {items.length === 0 ? <p>Não há registros de entrada ou saída</p> :
+                {!items ? rotatingLines : items.length === 0 ? <p>Não há registros de entrada ou saída</p> :
                     <>
                         <ul>
                             {items.map((item, i) => <StatementCard item={item} key={i} />)}
