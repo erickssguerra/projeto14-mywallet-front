@@ -34,7 +34,7 @@ export default function StatementPage() {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         }
-        const promise = axios.get("http://localhost:5000/transactions", config)
+        const promise = axios.get("https://mywallet-api-srvi.onrender.com/transactions", config)
         promise.then((res) => {
             setTotal(sum(res.data))
             setItems(res.data)
@@ -44,7 +44,7 @@ export default function StatementPage() {
             navigate("/")
             window.location.reload()
         })
-    }, [items])
+    }, [navigate, token, items])
 
     return (
         <StatementPageStyle isEmpty={items.length === 0} isPositive={total >= 0}>

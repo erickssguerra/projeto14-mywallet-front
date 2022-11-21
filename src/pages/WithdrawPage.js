@@ -25,7 +25,7 @@ export default function WithdrawPage() {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         }
-        const promise = axios.get("http://localhost:5000/transactions", config)
+        const promise = axios.get("https://mywallet-api-srvi.onrender.com/transactions", config)
         promise.then((res) => {
             console.log({ message: "Você está logado" })
         })
@@ -45,7 +45,7 @@ export default function WithdrawPage() {
         }
         form.price = Number(form.price).toFixed(2)
 
-        const promise = axios.post("http://localhost:5000/transactions", form, config)
+        const promise = axios.post("https://mywallet-api-srvi.onrender.com/transactions", form, config)
         promise.then((res) => {
             console.log(res.data.message)
             navigate("/extrato")

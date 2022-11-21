@@ -24,7 +24,7 @@ export default function RegisterPage() {
             return
         }
         delete form.password2
-        const promise = axios.post("http://localhost:5000/sign-up", form)
+        const promise = axios.post("https://mywallet-api-srvi.onrender.com/sign-up", form)
         promise.then(() => {
             navigate("/")
         })

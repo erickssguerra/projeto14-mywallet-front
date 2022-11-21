@@ -15,7 +15,7 @@ export default function StatementCard({ item }) {
             const config = {
                 headers: { Authorization: `Bearer ${token}` }
             }
-            const promise = axios.delete(`http://localhost:5000/transactions/${_id}`, config)
+            const promise = axios.delete(`https://mywallet-api-srvi.onrender.com/transactions/${_id}`, config)
             promise.then((res) => {
                 console.log(res.data.message)
             })

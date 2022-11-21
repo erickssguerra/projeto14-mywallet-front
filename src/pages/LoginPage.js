@@ -22,7 +22,7 @@ export default function LoginPage() {
 
     function login(event) {
         event.preventDefault();
-        const promise = axios.post("http://localhost:5000/sign-in", form)
+        const promise = axios.post("https://mywallet-api-srvi.onrender.com/sign-in", form)
         promise.then((res) => {
             setToken(res.data.token)
             setName(res.data.name)
