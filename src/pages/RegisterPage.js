@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
-import { Oval } from "react-loader-spinner"
 
+import { ovalSpinner } from "../assets/Loading-spinners.js"
 import FormStyle from "../assets/FormStyle"
 import LoginPageStyle from "../assets/LoginPageStyle"
 import logo from "../assets/logo.png"
@@ -81,20 +81,7 @@ export default function RegisterPage() {
                     disabled={isBlocked}
                 />
                 <button type="submit">
-                    {isBlocked ?
-                        <Oval
-                        height={30}
-                        width={30}
-                        color="#ffffff"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                        visible={true}
-                        ariaLabel='oval-loading'
-                        secondaryColor="#993399"
-                        strokeWidth={10}
-                        strokeWidthSecondary={10}
-                      
-                      /> : "Cadastrar"}
+                    {isBlocked ? ovalSpinner : "Cadastrar"}
                 </button>
             </FormStyle>
             <Link to="/"><p>Já tem uma conta? Entre agora!</p></Link>
