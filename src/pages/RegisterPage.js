@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
+import { Oval } from "react-loader-spinner"
 
 import FormStyle from "../assets/FormStyle"
 import LoginPageStyle from "../assets/LoginPageStyle"
@@ -10,6 +11,7 @@ export default function RegisterPage() {
 
     const navigate = useNavigate()
     const [form, setForm] = useState({ name: "", email: "", password: "", password2: "" })
+    const [isBlocked, setIsBlocked] = useState(false)
 
     function inputControl(event) {
         setForm({
@@ -18,8 +20,10 @@ export default function RegisterPage() {
     }
 
     function signUp(event) {
+        setIsBlocked(true)
         event.preventDefault()
         if (form.password !== form.password2) {
+            setIsBlocked(false)
             alert("Senha não coincide!")
             return
         }
@@ -30,6 +34,7 @@ export default function RegisterPage() {
         })
         promise.catch((err) => {
             alert(err.response.data.message)
+            setIsBlocked(false)
         })
     }
 
@@ -46,6 +51,7 @@ export default function RegisterPage() {
                     onChange={inputControl}
                     value={form.name}
                     required
+                    disabled={isBlocked}
                 />
                 <input
                     type="email"
@@ -54,6 +60,7 @@ export default function RegisterPage() {
                     onChange={inputControl}
                     value={form.email}
                     required
+                    disabled={isBlocked}
                 />
                 <input
                     type="password"
@@ -62,6 +69,7 @@ export default function RegisterPage() {
                     onChange={inputControl}
                     value={form.password}
                     required
+                    disabled={isBlocked}
                 />
                 <input
                     type="password"
@@ -70,8 +78,24 @@ export default function RegisterPage() {
                     onChange={inputControl}
                     value={form.password2}
                     required
+                    disabled={isBlocked}
                 />
-                <button>Cadastrar</button>
+                <button type="submit">
+                    {isBlocked ?
+                        <Oval
+                        height={30}
+                        width={30}
+                        color="#ffffff"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel='oval-loading'
+                        secondaryColor="#993399"
+                        strokeWidth={10}
+                        strokeWidthSecondary={10}
+                      
+                      /> : "Cadastrar"}
+                </button>
             </FormStyle>
             <Link to="/"><p>Já tem uma conta? Entre agora!</p></Link>
         </LoginPageStyle>
