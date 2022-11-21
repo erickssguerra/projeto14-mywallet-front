@@ -6,13 +6,15 @@ import FormStyle from "../assets/FormStyle"
 import LoginPageStyle from "../assets/LoginPageStyle"
 import logo from "../assets/logo.png"
 import { AuthContext } from "../context/Auth";
+import { ovalSpinner } from "../assets/Loading-spinners.js";
 
 
 export default function LoginPage() {
 
-    const [form, setForm] = useState({ email: "", password: "" })
-    const { setToken, setName } = useContext(AuthContext)
     const navigate = useNavigate()
+    const [form, setForm] = useState({ email: "", password: "" })
+    const [isBlocked, setIsBlocked] = useState(false)
+    const { setToken, setName } = useContext(AuthContext)
 
     function inputControl(event) {
         setForm({
@@ -21,6 +23,7 @@ export default function LoginPage() {
     }
 
     function login(event) {
+        setIsBlocked(true)
         event.preventDefault();
         const promise = axios.post("https://mywallet-api-srvi.onrender.com/sign-in", form)
         promise.then((res) => {
@@ -30,6 +33,7 @@ export default function LoginPage() {
         })
         promise.catch((err) => {
             alert(err.response.data.message)
+            setIsBlocked(false)
         })
 
     }
@@ -46,6 +50,7 @@ export default function LoginPage() {
                     onChange={inputControl}
                     value={form.email}
                     required
+                    disabled={isBlocked}
                 />
                 <input
                     placeholder="Senha"
@@ -54,8 +59,11 @@ export default function LoginPage() {
                     onChange={inputControl}
                     value={form.password}
                     required
+                    disabled={isBlocked}
                 />
-                <button>Entrar</button>
+                <button type="submit">
+                    {isBlocked ? ovalSpinner : "Entrar"}
+                </button>
             </FormStyle>
             <Link to="/cadastro">
                 <p>
