@@ -5,12 +5,14 @@ import dayjs from "dayjs"
 import { AuthContext } from "../context/Auth"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { ovalSpinner } from "../assets/Loading-spinners.js"
 
 export default function DepositPage() {
 
-    const { token } = useContext(AuthContext)
     const navigate = useNavigate()
+    const { token } = useContext(AuthContext)
     const [form, setForm] = useState({ price: "", description: "" })
+    const [isBlocked, setIsBlocked] = useState(false)
 
     function inputControl(event) {
         setForm({
@@ -38,6 +40,7 @@ export default function DepositPage() {
     }, [navigate, token])
 
     function deposit(event) {
+        setIsBlocked(true)
         event.preventDefault()
 
         const config = {
@@ -69,6 +72,7 @@ export default function DepositPage() {
                     onChange={inputControl}
                     value={form.price}
                     required
+                    disabled={isBlocked}
                 />
                 <input
                     type="text"
@@ -77,9 +81,10 @@ export default function DepositPage() {
                     onChange={inputControl}
                     value={form.description}
                     required
+                    disabled={isBlocked}
                 />
-                <button>
-                    Salvar entrada
+                <button type="submit">
+                    {isBlocked ? ovalSpinner : "Salvar entrada"}
                 </button>
             </FormStyle>
         </TransactionPageStyle>
