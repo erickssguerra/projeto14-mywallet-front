@@ -5,12 +5,14 @@ import dayjs from "dayjs"
 import { AuthContext } from "../context/Auth"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { ovalSpinner } from "../assets/Loading-spinners.js"
 
 export default function WithdrawPage() {
 
     const { token } = useContext(AuthContext)
     const navigate = useNavigate()
     const [form, setForm] = useState({ price: "", description: "" })
+    const [isBlocked, setIsBlocked] = useState(false)
 
     function inputControl(event) {
         setForm({
@@ -38,6 +40,7 @@ export default function WithdrawPage() {
     }, [navigate, token])
 
     function withdraw(event) {
+        setIsBlocked(true)
         event.preventDefault()
 
         const config = {
@@ -53,6 +56,7 @@ export default function WithdrawPage() {
         promise.catch((err) => {
             alert(err.response.data.message)
             navigate("/")
+            window.location.reload()
         })
     }
 
@@ -68,6 +72,7 @@ export default function WithdrawPage() {
                     onChange={inputControl}
                     value={form.price}
                     required
+                    disabled={isBlocked}
                 />
                 <input
                     type="text"
@@ -76,9 +81,10 @@ export default function WithdrawPage() {
                     onChange={inputControl}
                     value={form.description}
                     required
+                    disabled={isBlocked}
                 />
-                <button>
-                    Salvar saída
+                <button type="submit">
+                    {isBlocked ? ovalSpinner : "Salvar saída"}
                 </button>
             </FormStyle>
         </TransactionPageStyle>
